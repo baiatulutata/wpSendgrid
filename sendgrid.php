@@ -99,7 +99,30 @@ class SendGrid_Email_Override {
                 'value' => $body
             ]]
         ];
+// Default to plain text
+        $content_type = 'text/plain';
 
+// Check if content-type is specified in headers
+        if (!empty($headers)) {
+            if (is_array($headers)) {
+                foreach ($headers as $header) {
+                    if (stripos($header, 'Content-Type:') !== false && stripos($header, 'text/html') !== false) {
+                        $content_type = 'text/html';
+                        break;
+                    }
+                }
+            } elseif (is_string($headers) && stripos($headers, 'Content-Type:') !== false) {
+                if (stripos($headers, 'text/html') !== false) {
+                    $content_type = 'text/html';
+                }
+            }
+        }
+
+// Now create the content
+        $email_data['content'] = [[
+            'type' => $content_type,
+            'value' => $body
+        ]];
         $response = wp_remote_post('https://api.sendgrid.com/v3/mail/send', [
             'headers' => [
                 'Authorization' => 'Bearer ' . $options['api_key'],
