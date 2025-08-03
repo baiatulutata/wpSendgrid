@@ -1,5 +1,5 @@
 === SendGrid Email Override ===
-Contributors: ionutbaldazar
+Contributors: baiatulutata
 Tags: sendgrid, email, smtp, wp_mail, override, api
 Requires at least: 5.0
 Tested up to: 6.5
@@ -53,3 +53,23 @@ The API key is stored securely in the WordPress options table, and nonce validat
 
 = 1.0 =
 Initial stable version.
+
+== External Services ==
+
+This plugin integrates with the [SendGrid](https://sendgrid.com/) email delivery service to send outgoing emails via its v3 API instead of the default `wp_mail()` function.
+
+When enabled, the plugin communicates with the following SendGrid API endpoint: https://api.sendgrid.com/v3/mail/send
+
+
+**Data sent to SendGrid includes:**
+- Sender name and email
+- Recipient email(s)
+- Email subject
+- Message body (text or HTML)
+- Optional headers (Cc, Bcc)
+
+The plugin requires a valid SendGrid API key to function. This key is stored in your WordPress database and is used only for authenticating API requests to SendGrid.
+
+**Privacy Notice:**
+By using this plugin, you agree to SendGrid’s [Terms of Service](https://www.twilio.com/legal/tos) and [Privacy Policy](https://www.twilio.com/legal/privacy). Ensure your use of SendGrid complies with applicable data protection laws and your organization’s privacy policies.
+
